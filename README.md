@@ -24,7 +24,7 @@ Link : [Price-Wise](https://price-wise-one.vercel.app/)
 - **Backend:**
   - Node.js
   - MongoDB 
-  - Railway (deployment platform)
+  - Vercel
 
 ## Getting Started
 
