@@ -31,6 +31,7 @@ export const scrapAmazonProducts = async (productUrl: string) => {
 	try {
 		const response = await axios.get(productUrl, option);
 		const $ = cheerio.load(response.data);
+		
 		// const browser = await puppeteer.launch({headless: true});
 
 		// const page = await browser.newPage();
@@ -97,7 +98,9 @@ export const scrapAmazonProducts = async (productUrl: string) => {
 			highestPrice: Number(originalPrice) || Number(currentPrice),
 			averagePrice: Number(currentPrice) || Number(originalPrice),
 		};
+		console.log(data);
 		return data;
+		
 	} catch (error: any) {
 		throw new Error(`Failed to scrap product : ${error.message}`);
 	}

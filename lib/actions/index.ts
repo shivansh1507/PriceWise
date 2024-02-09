@@ -15,10 +15,12 @@ export async function scrapeAndStoreProduct(productUrl: string) {
 	if (!productUrl) return;
 	try {
 		connectToDb();
+		console.log("Checkpoint 1");
 		const scrapedProduct = await scrapAmazonProducts(productUrl);
+		console.log(scrapedProduct);
 		if (!scrapedProduct) return;
 		let product = scrapedProduct;
-
+		console.log("Checkpoint 2");
 		// Checking product by its title
 		const existingProduct = await Products.findOne({ titleID: scrapedProduct.titleID });
 		let updatedPriceHistory: any = [];
@@ -38,6 +40,7 @@ export async function scrapeAndStoreProduct(productUrl: string) {
 				{ price: scrapedProduct.currentPrice },
 			];
 		}
+		console.log("Checkpoint 3");
 		product = {
 			...scrapedProduct,
 			priceHistory: updatedPriceHistory,
@@ -53,7 +56,7 @@ export async function scrapeAndStoreProduct(productUrl: string) {
 				new: true,
 			}
 		);
-		revalidatePath(`/`);
+		// revalidatePath(`/`);
 		revalidatePath(`/product/${newProduct._id}`);
 		return { id: newProduct._id.valueOf() };
 	} catch (error: any) {
